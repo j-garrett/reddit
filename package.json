@@ -1,0 +1,39 @@
+{
+  "name": "reddit",
+  "version": "1.0.0",
+  "description": "An awesome reddit reader",
+  "main": "index.js",
+  "scripts": {
+    "start": "serve ./src",
+    "compile": "./node_modules/.bin/webpack ./src/app.jsx",
+    "dev": "./node_modules/.bin/webpack --watch ./src/app.jsx"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jon-is-learning/reddit.git"
+  },
+  "keywords": [
+    "reddit"
+  ],
+  "author": "Jon Garrett",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jon-is-learning/reddit/issues"
+  },
+  "homepage": "https://github.com/jon-is-learning/reddit#readme",
+  "devDependencies": {
+    "babel-cli": "^6.22.2",
+    "babel-core": "^6.22.1",
+    "babel-loader": "^6.2.10",
+    "babel-preset-es2015": "^6.22.0",
+    "babel-preset-react": "^6.22.0",
+    "webpack": "^2.2.1"
+  },
+  "dependencies": {
+    "path": "^0.12.7",
+    "react": "^15.4.2",
+    "react-dom": "^15.4.2",
+    "serve": "^3.1.0",
+    "webpack-dev-server": "^1.16.3"
+  }
+}
