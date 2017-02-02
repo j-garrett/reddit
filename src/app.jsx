@@ -34,13 +34,13 @@ class AppContainer extends React.Component {
     // Empty string will default to frontpage
     this.fetchSubredditsFromReddit();
     // We should only need to list possible subreddits once so it can stay in here
-    fetch('https://www.reddit.com/subreddits/.json?limit=100')
+    fetch('https://www.reddit.com/subreddits/.json?limit=100&raw_json=1')
       .then((response) => response.json())
       .then((json) => this.setState({availableSubreddits: json.data.children}));
   }
   fetchSubredditsFromReddit() {
     // Let's break out the fetch functionality so we can reuse for reloading
-    fetch(`http://www.reddit.com/${this.state.chosenSubreddits}/.json`)
+    fetch(`http://www.reddit.com/${this.state.chosenSubreddits}/.json?raw_json=1`)
       .then((response) => response.json())
       .then((json) => {
         this.setState({entries: json.data.children});
@@ -54,9 +54,9 @@ class AppContainer extends React.Component {
     this.setState({chosenSubreddits: newList}, this.fetchSubredditsFromReddit);
   }
   loadMoreEntries(prevOrNext) {
-    console.log('http://www.reddit.com/${this.state.chosenSubreddits}.json?${prevOrNext}=${this.state.prevOrNext}`: ', `http://www.reddit.com/${this.state.chosenSubreddits}.json?${prevOrNext}=${this.state[prevOrNext]}`)
+    console.log('http://www.reddit.com/${this.state.chosenSubreddits}.json?${prevOrNext}=${this.state.prevOrNext}`: ', `http://www.reddit.com/${this.state.chosenSubreddits}.json?${prevOrNext}=${this.state[prevOrNext]}`);
     // TODO: refactor the fetchSubredditsFromReddit function to handle this
-    fetch(`http://www.reddit.com/${this.state.chosenSubreddits}.json?${prevOrNext}=${this.state[prevOrNext]}`)
+    fetch(`http://www.reddit.com/${this.state.chosenSubreddits}.json?${prevOrNext}=${this.state[prevOrNext]}&raw_json=1`)
       .then((response) => response.json())
       .then((json) => this.setState({entries: json.data.children}));
 

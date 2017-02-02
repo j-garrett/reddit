@@ -21,7 +21,7 @@ Entry.propTypes = {
   clickedBoolean: PropTypes.bool,
   subreddit: PropTypes.string,
   score: PropTypes.number,
-  numOfComments: PropTypes.num_comments,
+  numOfComments: PropTypes.number,
   commentsUrl: PropTypes.string,
 };
 
