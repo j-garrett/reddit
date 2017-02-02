@@ -8,7 +8,7 @@ const Entry = ({ title, linkToStory, thumbnail, author, clickedBoolean, subreddi
     <div className="entry-score">{score}</div>
     <Thumbnail thumbnail={thumbnail} title={title} />
     <p className="entry-detail-text">
-      submitted to <a href={'www.reddit.com/r/' + subreddit}>{subreddit}</a> by <a href={'www.reddit.com/user/' + author}>{author}</a>. <a href={commentsUrl}>({numOfComments} comments)</a>
+      submitted to <a href={'http://www.reddit.com/r/' + subreddit}>{subreddit}</a> by <a href={'http://www.reddit.com/user/' + author}>{author}</a>. <a href={commentsUrl}>({numOfComments} comments)</a>
     </p>
   </div>
 );

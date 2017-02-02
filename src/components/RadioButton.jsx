@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 
 const RadioButton = ({ value, onChangeFunc, buttonClass }) => (
   <div className={buttonClass}>
-    <button
+    <div
       onClick={() => {
         // Input value needs to be string with subreddit name
         // It will be added to fetch string
@@ -10,7 +10,7 @@ const RadioButton = ({ value, onChangeFunc, buttonClass }) => (
       }}
     >
     {value}
-    </button>
+    </div>
   </div>
 );
 

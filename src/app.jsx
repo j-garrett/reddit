@@ -63,53 +63,71 @@ class AppContainer extends React.Component {
   }
   render() {
     return (
-      <div>
+      <div id="jon-garrett-reddit-reader-app">
         <h1 id="site-title">Reddit Reader</h1>
-        <SubredditList
-          availableSubreddits={this.state.availableSubreddits}
-          updateChosenSubreddits={this.updateChosenSubreddits}
-        />
-        <div id="results-list">
-          <h2>
-            {this.state.chosenSubreddits === '' ? 'Front Page' : this.state.chosenSubreddits.slice(3).split('+').join(', ')}
-          </h2>
-          <hr />
-          {this.state.entries.map((post) =>
-            // Only show SFW results
-            post.data.over_18 === false ?
-              <Entry
-                key={post.data.id}
-                title={post.data.title}
-                linkToStory={post.data.url}
-                // TODO: add preview/peek option
-                thumbnail={post.data.thumbnail}
-                // TODO: create LINK to author profile
-                author={post.data.author}
-                // Grey out clicked posts
-                clickedBoolean={post.data.clicked}
-                subreddit={post.data.subreddit}
-                score={post.data.score}
-                numOfComments={post.data.num_comments}
-                commentsUrl={'www.reddit.com' + post.data.permalink}
-              />
-              :
-              null
-          )}
-          <hr />
-        </div>
-        <div className="pagination-buttons">
-          <button
-            id="pagination-next"
-            onClick={() => this.loadMoreEntries('before')}
-          >
-            prev
-          </button>
-          <button
-            id="pagination-next"
-            onClick={() => this.loadMoreEntries('after')}
-          >
-            next
-          </button>
+        <div id="rr-body-content">
+          <SubredditList
+            availableSubreddits={this.state.availableSubreddits}
+            updateChosenSubreddits={this.updateChosenSubreddits}
+          />
+          <div id="results-list">
+            <h2>
+              {this.state.chosenSubreddits === '' ? 'Front Page' : this.state.chosenSubreddits.slice(3).split('+').join(', ')}
+            </h2>
+            <div className="pagination-buttons">
+              <button
+                id="pagination-next"
+                onClick={() => this.loadMoreEntries('before')}
+              >
+                prev
+              </button>
+              <button
+                id="pagination-next"
+                onClick={() => this.loadMoreEntries('after')}
+              >
+                next
+              </button>
+            </div>
+            <hr />
+            <div id="entries-list-display">
+              {this.state.entries.map((post) =>
+                // Only show SFW results
+                post.data.over_18 === false ?
+                  <Entry
+                    key={post.data.id}
+                    title={post.data.title}
+                    linkToStory={post.data.url}
+                    // TODO: add preview/peek option
+                    thumbnail={post.data.thumbnail}
+                    // TODO: create LINK to author profile
+                    author={post.data.author}
+                    // Grey out clicked posts
+                    clickedBoolean={post.data.clicked}
+                    subreddit={post.data.subreddit}
+                    score={post.data.score}
+                    numOfComments={post.data.num_comments}
+                    commentsUrl={'http://www.reddit.com' + post.data.permalink}
+                  />
+                  :
+                  null
+              )}
+            </div>
+            <hr />
+            <div className="pagination-buttons">
+              <button
+                id="pagination-next"
+                onClick={() => this.loadMoreEntries('before')}
+              >
+                prev
+              </button>
+              <button
+                id="pagination-next"
+                onClick={() => this.loadMoreEntries('after')}
+              >
+                next
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     );

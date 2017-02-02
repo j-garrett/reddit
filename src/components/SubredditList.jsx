@@ -52,7 +52,7 @@ class SubredditList extends React.Component {
       .then((response) => response.json())
       .then((json) => {
         console.log('json subreddits: ', json);
-        this.setState({availableSubreddits: json.data.children})
+        this.setState({availableSubreddits: json.data.children});
       });
   }
   updateSearchValue(event) {
@@ -62,7 +62,7 @@ class SubredditList extends React.Component {
     return (
       <div id="available-subreddits-container">
         <h1>Available Subreddits</h1>
-        <label>
+        <label className="search-bar-subreddits">
           Search:
           <input
             type="text"
@@ -70,7 +70,7 @@ class SubredditList extends React.Component {
             onChange={this.updateSearchValue}
           />
         </label>
-        <div>
+        <div id="available-subreddits-list">
           {this.state.availableSubreddits.map((subreddit) =>
               <RadioButton
                 key={subreddit.data.display_name}
