@@ -89,6 +89,8 @@ class AppContainer extends React.Component {
                 clickedBoolean={post.data.clicked}
                 subreddit={post.data.subreddit}
                 score={post.data.score}
+                numOfComments={post.data.num_comments}
+                commentsUrl={'www.reddit.com' + post.data.permalink}
               />
               :
               null
