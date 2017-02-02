@@ -19,17 +19,16 @@ const container = document.getElementById('app');
 class AppContainer extends React.Component {
   constructor() {
     super();
-    console.log('app container created');
     this.state = {
       entries: [],
-      // Empty string will default to frontpage
-      chosenSubreddits: '',
       availableSubreddits: [],
+      chosenSubreddits: '',
     };
-    this.updateChosenSubreddits.bind(this);
+    this.updateChosenSubreddits = this.updateChosenSubreddits.bind(this);
   }
   componentDidMount() {
     // Load chosen subreddits
+    // Empty string will default to frontpage
     this.fetchSubredditsFromReddit();
     // We should only need to list possible subreddits once so it can stay in here
     fetch('https://www.reddit.com/subreddits/.json')
@@ -44,7 +43,8 @@ class AppContainer extends React.Component {
   }
   updateChosenSubreddits(listOfSubreddits) {
     // listOfSubreddits will be array of subs the user wants to view
-    this.setState({chosenSubreddits: listOfSubreddits.join('+')});
+    const newList = listOfSubreddits.length > 0 ? '/r/' + listOfSubreddits.join('+') : '';
+    this.setState({chosenSubreddits: newList}, this.fetchSubredditsFromReddit);
   }
   render() {
     return (
@@ -56,7 +56,7 @@ class AppContainer extends React.Component {
         />
         <div id="results-list">
           <h2>
-            {this.state.chosenSubreddits === '' ? 'Front Page' : this.state.chosendSubreddits}
+            {this.state.chosenSubreddits === '' ? 'Front Page' : this.state.chosenSubreddits.slice(3).split('+').join(', ')}
           </h2>
           <hr />
           {this.state.entries.map((post) =>
