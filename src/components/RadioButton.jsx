@@ -11,7 +11,6 @@ const RadioButton = ({ value, onChangeFunc, buttonClass }) => (
     >
     {value}
     </button>
-    <br />
   </div>
 );
 

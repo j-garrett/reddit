@@ -31,7 +31,7 @@ class AppContainer extends React.Component {
     // Empty string will default to frontpage
     this.fetchSubredditsFromReddit();
     // We should only need to list possible subreddits once so it can stay in here
-    fetch('https://www.reddit.com/subreddits/.json')
+    fetch('https://www.reddit.com/subreddits/.json?limit=100')
       .then((response) => response.json())
       .then((json) => this.setState({availableSubreddits: json.data.children}));
   }
@@ -45,6 +45,9 @@ class AppContainer extends React.Component {
     // listOfSubreddits will be array of subs the user wants to view
     const newList = listOfSubreddits.length > 0 ? '/r/' + listOfSubreddits.join('+') : '';
     this.setState({chosenSubreddits: newList}, this.fetchSubredditsFromReddit);
+  }
+  loadMoreEntries() {
+
   }
   render() {
     return (
@@ -84,8 +87,18 @@ class AppContainer extends React.Component {
         TODO: pagination buttons that actually work
         */}
         <div className="pagination-buttons">
-          <button id="pagination-prev">prev</button>
-          <button id="pagination-next">next</button>
+          <button
+            id="pagination-next"
+            onClick={this.loadMoreEntries(next)}
+          >
+            prev
+          </button>
+          <button
+            id="pagination-next"
+            onClick={this.loadMoreEntries(next)}
+          >
+            next
+          </button>
         </div>
       </div>
     );
