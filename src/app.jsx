@@ -54,12 +54,14 @@ class AppContainer extends React.Component {
     this.setState({chosenSubreddits: newList}, this.fetchSubredditsFromReddit);
   }
   loadMoreEntries(prevOrNext) {
-    console.log('http://www.reddit.com/${this.state.chosenSubreddits}.json?${prevOrNext}=${this.state.prevOrNext}`: ', `http://www.reddit.com/${this.state.chosenSubreddits}.json?${prevOrNext}=${this.state[prevOrNext]}`);
     // TODO: refactor the fetchSubredditsFromReddit function to handle this
     fetch(`http://www.reddit.com/${this.state.chosenSubreddits}.json?${prevOrNext}=${this.state[prevOrNext]}&raw_json=1`)
       .then((response) => response.json())
-      .then((json) => this.setState({entries: json.data.children}));
-
+      .then((json) => {
+        this.setState({entries: json.data.children});
+        this.setState({before: json.data.before});
+        this.setState({after: json.data.after});
+      });
   }
   render() {
     return (
