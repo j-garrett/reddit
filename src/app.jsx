@@ -23,8 +23,11 @@ class AppContainer extends React.Component {
       entries: [],
       availableSubreddits: [],
       chosenSubreddits: '',
+      before: null,
+      after: null,
     };
     this.updateChosenSubreddits = this.updateChosenSubreddits.bind(this);
+    this.loadMoreEntries = this.loadMoreEntries.bind(this);
   }
   componentDidMount() {
     // Load chosen subreddits
@@ -39,14 +42,23 @@ class AppContainer extends React.Component {
     // Let's break out the fetch functionality so we can reuse for reloading
     fetch(`http://www.reddit.com/${this.state.chosenSubreddits}/.json`)
       .then((response) => response.json())
-      .then((json) => this.setState({entries: json.data.children}));
+      .then((json) => {
+        this.setState({entries: json.data.children});
+        this.setState({before: json.data.before});
+        this.setState({after: json.data.after});
+      });
   }
   updateChosenSubreddits(listOfSubreddits) {
     // listOfSubreddits will be array of subs the user wants to view
     const newList = listOfSubreddits.length > 0 ? '/r/' + listOfSubreddits.join('+') : '';
     this.setState({chosenSubreddits: newList}, this.fetchSubredditsFromReddit);
   }
-  loadMoreEntries() {
+  loadMoreEntries(prevOrNext) {
+    console.log('http://www.reddit.com/${this.state.chosenSubreddits}.json?${prevOrNext}=${this.state.prevOrNext}`: ', `http://www.reddit.com/${this.state.chosenSubreddits}.json?${prevOrNext}=${this.state[prevOrNext]}`)
+    // TODO: refactor the fetchSubredditsFromReddit function to handle this
+    fetch(`http://www.reddit.com/${this.state.chosenSubreddits}.json?${prevOrNext}=${this.state[prevOrNext]}`)
+      .then((response) => response.json())
+      .then((json) => this.setState({entries: json.data.children}));
 
   }
   render() {
@@ -83,19 +95,16 @@ class AppContainer extends React.Component {
           )}
           <hr />
         </div>
-        {/*
-        TODO: pagination buttons that actually work
-        */}
         <div className="pagination-buttons">
           <button
             id="pagination-next"
-            onClick={this.loadMoreEntries(next)}
+            onClick={() => this.loadMoreEntries('before')}
           >
             prev
           </button>
           <button
             id="pagination-next"
-            onClick={this.loadMoreEntries(next)}
+            onClick={() => this.loadMoreEntries('after')}
           >
             next
           </button>
