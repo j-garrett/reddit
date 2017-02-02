@@ -70,6 +70,26 @@ a {
   text-decoration: none;
 }
 
+.entry {
+  display: flex;
+  flex-direction: row;
+  margin-top: 8px;
+}
+
+.entry .entry-image-thumbnail {
+  min-height: 140px;
+  min-width: 140px;
+  overflow: hidden;
+  order: 1;
+  margin: 4px;
+}
+
+.entry .entry-data-display {
+  order: 2;
+  display: flex;
+  flex-direction: column;
+}
+
 @media screen and (max-width: 650px) {
   #rr-body-content {
     display: flex;
